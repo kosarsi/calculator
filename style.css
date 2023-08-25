@@ -6,6 +6,12 @@
     border-radius: 10px;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #display {
     border: 1px solid black;
     border-radius: 5px;
