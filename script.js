@@ -57,7 +57,7 @@ del.addEventListener('click', function() {
 equal = document.querySelector('#evaluate');
 equal.addEventListener('click', function() {
     try {
-        display.textContent = evaluateExpression(display.textContent)
+        display.textContent = evaluateExpression(display.textContent);
     } catch {
 
     }
