@@ -1,6 +1,8 @@
 display = document.querySelector('#display');
 display.textContent = "0";
 
+let displayText = ['0'];
+
 zero = document.querySelector('#zero');
 one = document.querySelector('#one'); 
 two = document.querySelector('#two');
@@ -16,21 +18,20 @@ numberOrder = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
 for (let i = 0; i < numbers.length; i++) {
     numbers[i].addEventListener('click', function() {
         display.textContent = display.textContent + numberOrder[i];
+        if (isNaN(displayText[displayText.length - 1])) {
+            displayText.push(numberOrder[i] + "");
+        } else {
+            displayText[displayText.length - 1] = displayText[displayText.length - 1] + numberOrder[i]; 
+        }
     });
 }
 
-left = document.querySelector('#left');
-right = document.querySelector('#right');
-left.addEventListener('click', function() {
-    display.textContent = display.textContent + '(';
-});
-right.addEventListener('click', function() {
-    display.textContent = display.textContent + ')';
-});
-
 decimal = document.querySelector('#decimal');
 decimal.addEventListener('click', function() {
-    display.textContent = display.textContent + '.';
+    if (!isNaN(displayText[displayText.length - 1]) && !(displayText[displayText.length - 1].includes('.'))) {
+        display.textContent = display.textContent + '.';
+        displayText[displayText.length - 1] = displayText[displayText.length - 1] + ".";
+    }
 });
 
 add = document.querySelector('#add');
@@ -38,10 +39,13 @@ subtract = document.querySelector('#subtract');
 multiply = document.querySelector('#multiply');
 divide = document.querySelector('#divide');
 operators = document.querySelectorAll('.operation');
-operatorOrder = ['/', '*', '-', '+'];
+operatorOrder = ['÷', '×', '-', '+'];
 for (let i = 0; i < operators.length; i++) {
     operators[i].addEventListener('click', function() {
-        display.textContent = display.textContent + operatorOrder[i]; 
+        if (!operatorOrder.includes(displayText[displayText.length - 1]) && displayText.length != 0) {
+            display.textContent = display.textContent + operatorOrder[i]; 
+            displayText.push(operatorOrder[i]);
+        }
     });
 }
 
@@ -49,24 +53,48 @@ clr = document.querySelector('#clr');
 del = document.querySelector('#del');
 clr.addEventListener('click', function() {
     display.textContent = '';
+    displayText = [];
 });
 del.addEventListener('click', function() {
     display.textContent = display.textContent.substring(0, display.textContent.length - 1);
+    if (displayText[displayText.length - 1].length == 1) {
+        displayText.pop();
+    } else {
+        displayText[displayText.length - 1] = displayText[displayText.length - 1].slice(0, displayText[displayText.length - 1].length - 1);
+    }
 });
 
 equal = document.querySelector('#evaluate');
 equal.addEventListener('click', function() {
-    try {
-        display.textContent = evaluateExpression(display.textContent);
-    } catch {
-
+    let t = displayText[displayText.length - 1]; 
+    if (displayText.length != 0 && !isNaN(t) && !isNaN(t[t.length - 1])) {
+        for (let i = 1; i < displayText.length - 1; i += 2) {
+            if (displayText[i] == '×' || displayText[i] == '÷') {
+                let x;
+                if (displayText[i] == '×') {
+                    x = displayText[i - 1] * displayText[i + 1];
+                } else {
+                    x = displayText[i - 1] / displayText[i + 1];
+                }
+                displayText.splice(i - 1, 3);
+                displayText.splice(i - 1, 0, x);
+                i -= 2;
+            }
+        }
+        for (let i = 1; i < displayText.length - 1; i += 2) {
+            if (displayText[i] == '+' || displayText[i] == '-') {
+                let x;
+                if (displayText[i] == '+') {
+                    x = displayText[i - 1] * 1 + displayText[i + 1] * 1;
+                } else {
+                    x = displayText[i - 1] - displayText[i + 1];
+                }
+                displayText.splice(i - 1, 3);
+                displayText.splice(i - 1, 0, x);
+                i -= 2;
+            }
+        }
+        display.textContent = displayText[0];
     }
+    
 });
-
-function evaluateExpression(expression) {
-    try {
-        return Function(`"use strict"; return (${expression});`)();
-    } catch (error) {
-        return "Error"; // Handle invalid expressions
-    }
-}
