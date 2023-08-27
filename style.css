@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 200px;
-    background-color: rgba(87, 87, 87, 25);
+    background-color: rgba(232,240,242,255);
     border-radius: 10px;
 }
 
@@ -10,6 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(2,128,143,255);
 }
 
 #display {
@@ -20,7 +21,7 @@ body {
     padding-right: 5px;
     height: 30px;
     align-items: center;
-    background-color: rgb(188, 209, 192);
+    background-color: rgba(2,128,143,255);
     margin: 10px 10px 0px 10px;
 }
 
@@ -42,7 +43,6 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(236, 236, 236);
     margin: 2px;
     font-weight: bold;
     font-size: 12px;
@@ -59,4 +59,17 @@ button:hover {
 #del,
 #clr {
     width: 90px;
+    background-color: #f35b68;
+
 }
+
+.operation,
+#evaluate {
+    background-color: rgba(18,74,95,255);
+}
+
+.number,
+#decimal {
+    background-color: rgba(2,128,143,255);
+}
+
