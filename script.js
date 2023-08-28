@@ -28,7 +28,7 @@ for (let i = 0; i < numbers.length; i++) {
 
 decimal = document.querySelector('#decimal');
 decimal.addEventListener('click', function() {
-    if (!isNaN(displayText[displayText.length - 1]) && !(displayText[displayText.length - 1].includes('.'))) {
+    if (!isNaN(displayText[displayText.length - 1]) && !(displayText[displayText.length - 1].includes("."))) {
         display.textContent = display.textContent + '.';
         displayText[displayText.length - 1] = displayText[displayText.length - 1] + ".";
     }
@@ -94,7 +94,9 @@ equal.addEventListener('click', function() {
                 i -= 2;
             }
         }
+        displayText[0] = displayText[0] + "";
         display.textContent = displayText[0];
     }
+    console.log(displayText);
     
 });
