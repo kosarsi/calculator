@@ -1,3 +1,7 @@
+* {
+    font-family: 'Orbitron', sans-serif;;
+}
+
 #calculator {
     display: flex;
     flex-direction: column;
@@ -66,10 +70,10 @@ button:hover {
 .operation,
 #evaluate {
     background-color: rgba(18,74,95,255);
+    font-size: 16px;
 }
 
 .number,
 #decimal {
     background-color: rgba(2,128,143,255);
 }
-
