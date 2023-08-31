@@ -96,7 +96,22 @@ equal.addEventListener('click', function() {
         }
         displayText[0] = displayText[0] + "";
         display.textContent = displayText[0];
+        let pastDecimal = 0; 
+        if (displayText[0].includes(".")) {
+            let i = displayText[0].indexOf(".");
+            pastDecimal = displayText[0].length - i - 1; 
+        }
+        console.log(pastDecimal);
+        if (pastDecimal > 5) {
+            let x = displayText[0] * 1;
+            x = x * 100000;
+            x = Math.round(x);
+            x = x / 100000;
+            displayText[0] = x + "";
+            display.textContent = displayText[0];  
+        }
+
     }
-    console.log(displayText);
+
     
 });
